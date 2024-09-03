@@ -1,17 +1,18 @@
 @startuml
+!theme mars
 ' hide the spot
 ' hide circle
 ' avoid problems with angled crows feet
 skinparam linetype ortho
-entity "DANHMUCSANPHAM" {
+entity "DANHMUC" #Pink {
 *MaDanhMuc : number <<generated>>
 --
 *TenDanhMuc : text
 *AnhDanhMuc : image
 }
 
-entity "SANPHAM"  {
-*MaSanPham : number <<generated>>
+entity "SANPHAM" #Implementation  {
+*MaSanPham : number <<generated>> 
 --
 *MaDanhMuc : number <<FK>>
 GiaTien: money
@@ -19,33 +20,52 @@ AnhSanPham: image
 MoTaSanPham : text
 }
 
-entity "KHACHHANG" {
-*MaKhachHang : number <<generated>>
+entity "KHUYENMAI" #Orchid{
+*MaKhuyenMai: number <<genrerated>>
 --
-TenDangNhap: string
-MatKhau: string
+*TieuDeKhuyenMai: text
+*AnhKhuyenMai: image
+ChiTietKhuyenMai: text
+MaDanhMuc : number <<FK>>
 }
 
-entity "GIOHANG"{
+entity "GIOHANG-HOADON" #Lavender {
 *MaNguoiDung : number <<FK>>
 *MaSanPham : number <<FK>>
 SoLuongSanPham: number
 TongTien: money
 }
 
-entity "KHUYENMAI"{
-*MaKhuyenMai: number <<genrerated>>
+
+entity "KHACHHANG" #LightYellow {
+*MaKhachHang : number <<generated>>
 --
-*TieuDeKhuyenMai: text
-*AnhKhuyenMai: image
-ChiTietKhuyenMai: text
+TenDangNhap: string
+MatKhau: string
+HoTenKH: text
+NgaySinhKH: date
+SoDienThoaiKH: string
 }
 
-entity "QUANLY"{
+
+
+
+entity "QUANLY" #LightGreen {
 *MaQuanLy: number <<genrerated>>
+--
+HoTenQL: text
+TenDangNhap: string
+MatKhau: string
+NgaySinh: date
+DiaChi: string
+SoDienThoai: string
 }
 
 
-DANHMUCSANPHAM }|-- SANPHAM
-SANPHAM }o..o{GIOHANG
+
+
+SANPHAM }o--|| DANHMUC
+SANPHAM }o.."GIOHANG-HOADON"
+KHACHHANG ||.."GIOHANG-HOADON"
+DANHMUC }o--|| KHUYENMAI
 @enduml
