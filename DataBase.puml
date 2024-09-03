@@ -1,0 +1,51 @@
+@startuml
+' hide the spot
+' hide circle
+' avoid problems with angled crows feet
+skinparam linetype ortho
+entity "DANHMUCSANPHAM" {
+*MaDanhMuc : number <<generated>>
+--
+*TenDanhMuc : text
+*AnhDanhMuc : image
+}
+
+entity "SANPHAM"  {
+*MaSanPham : number <<generated>>
+--
+*MaDanhMuc : number <<FK>>
+GiaTien: money
+AnhSanPham: image
+MoTaSanPham : text
+}
+
+entity "KHACHHANG" {
+*MaKhachHang : number <<generated>>
+--
+TenDangNhap: string
+MatKhau: string
+}
+
+entity "GIOHANG"{
+*MaNguoiDung : number <<FK>>
+*MaSanPham : number <<FK>>
+SoLuongSanPham: number
+TongTien: money
+}
+
+entity "KHUYENMAI"{
+*MaKhuyenMai: number <<genrerated>>
+--
+*TieuDeKhuyenMai: text
+*AnhKhuyenMai: image
+ChiTietKhuyenMai: text
+}
+
+entity "QUANLY"{
+*MaQuanLy: number <<genrerated>>
+}
+
+
+DANHMUCSANPHAM }|-- SANPHAM
+SANPHAM }o..o{GIOHANG
+@enduml
