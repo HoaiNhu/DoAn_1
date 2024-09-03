@@ -68,4 +68,34 @@ SANPHAM }o--|| DANHMUC
 SANPHAM }o.."GIOHANG-HOADON"
 KHACHHANG ||.."GIOHANG-HOADON"
 DANHMUC }o--|| KHUYENMAI
+
+/'Nhu---------------------------------------------------------------'/
+
+entity "USER" as Login{
+*Id_User: string <<generated>>
+--
+Email: string
+MatKhau:string
+
+}
+
+entity "CT_DONHANG" as HanhTrinhDonHang{
+*MaHoaDon:string  <<FK>>
+*MaKhachHang: number <<FK>>
+*MaTinhTrang:number <<FK>>
+}
+
+entity "HOADON" {
+*MaHoaDon: string <<generated>>
+--
+LoaiHoaDon: number
+}
+
+entity "TINHTRANG"{
+*MaTinhTrang: number <<generated>>
+--
+TenTinhTrang: string
+}
+
+
 @enduml
