@@ -9,16 +9,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5501;
 
-// app.get("/", (req, res) => {
-//   res.send("Hello world one");
-// });
+app.get("/", (req, res) => {
+  res.send("Hello world one");
+});
 app.use(bodyParser.json());
 routes(app);
 
 mongoose
   .connect(`${process.env.MONGO_DB}`)
   .then(() => {
-    console.log("Connect is successful");
+    console.log("Connect db successful");
   })
   .catch((err) => {
     console.log(err);
