@@ -92,6 +92,7 @@ const loginUser = (userLogin) => {
   });
 };
 
+//update user
 const updateUser = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -122,8 +123,84 @@ const updateUser = (id, data) => {
   });
 };
 
+//delete user
+const deleteUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check email created
+      const checkUser = await User.findOne({
+        _id: id,
+      });
+      //console.log("checkUser", checkUser);
+
+      //nếu user ko tồn tại
+      if (checkUser === null) {
+        resolve({
+          status: "OK",
+          message: "The user is not defined",
+        });
+      }
+
+      await User.findByIdAndDelete(id);
+      //console.log("updatedUser", updatedUser);
+      resolve({
+        status: "OK",
+        message: "DELETE USER IS SUCCESS",
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+//get info user
+const getAllUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const allUser = await User.find();
+      resolve({
+        status: "OK",
+        message: "DELETE USER IS SUCCESS",
+        data: allUser,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+//get details user
+const getDetailsUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check email created
+      const user = await User.findOne({
+        _id: id,
+      });
+
+      //nếu user ko tồn tại
+      if (user === null) {
+        resolve({
+          status: "OK",
+          message: "The user is not defined",
+        });
+      }
+
+      resolve({
+        status: "OK",
+        message: "SUCCESS",
+        data: user,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createUser,
   loginUser,
   updateUser,
+  deleteUser,
+  getAllUser,
+  getDetailsUser,
 };
