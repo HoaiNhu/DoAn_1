@@ -196,6 +196,9 @@ const getDetailsUser = (id) => {
     }
   });
 };
+
+//tạo access token dựa vào refresh token
+
 module.exports = {
   createUser,
   loginUser,
