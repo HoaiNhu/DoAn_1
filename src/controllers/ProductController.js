@@ -1,6 +1,6 @@
 const ProductService = require("../services/ProductService");
 
-//tạo sản phẩm
+//create product
 const createProduct = async (req, res) => {
   try {
     //test input data
@@ -25,7 +25,7 @@ const createProduct = async (req, res) => {
   }
 };
 
-//update sản phẩm
+//update product
 const updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
@@ -45,7 +45,66 @@ const updateProduct = async (req, res) => {
     });
   }
 };
+
+//delete product
+const deleteProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    //const token = req.headers;
+
+    if (!productId) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The productId is required",
+      });
+    }
+
+    const response = await ProductService.deleteProduct(productId);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+
+//get details product
+const getDetailsProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    if (!productId) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The productId is required",
+      });
+    }
+
+    const response = await ProductService.getDetailsProduct(productId);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+
+//get all product
+const getAllProduct = async (req, res) => {
+  try {
+    const response = await ProductService.getAllProduct();
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+
 module.exports = {
   createProduct,
   updateProduct,
+  deleteProduct,
+  getDetailsProduct,
+  getAllProduct,
 };
