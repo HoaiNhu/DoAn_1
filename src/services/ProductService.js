@@ -41,6 +41,37 @@ const createProduct = (newProduct) => {
   });
 };
 
+//update product
+const updateProduct = (id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check name created
+      const checkProduct = await Product.findOne({
+        _id: id,
+      });
+      //console.log("checkUser", checkUser);
+
+      //nếu product ko tồn tại
+      if (checkProduct === null) {
+        resolve({
+          status: "OK",
+          message: "The product is not defined",
+        });
+      }
+
+      const updatedProduct = await Product.findByIdAndUpdate(id, data, { new: true });
+      //console.log("updatedProduct", updatedProduct);
+      resolve({
+        status: "OK",
+        message: "SUCCESS",
+        data: updatedProduct,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createProduct,
+  updateProduct,
 };

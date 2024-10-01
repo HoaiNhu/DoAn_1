@@ -25,6 +25,27 @@ const createProduct = async (req, res) => {
   }
 };
 
+//update sản phẩm
+const updateProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const data = req.body;
+    if (!productId) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The productId is required",
+      });
+    }
+
+    const response = await ProductService.updateProduct(productId, data);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 module.exports = {
   createProduct,
+  updateProduct,
 };
