@@ -15,7 +15,7 @@ const createUser = (newUser) => {
       if (checkUser !== null) {
         resolve({
           status: "OK",
-          message: "The email is exist",
+          message: "The email is already",
         });
       }
       //mã hóa password
