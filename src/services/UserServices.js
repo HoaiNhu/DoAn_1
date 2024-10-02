@@ -161,7 +161,7 @@ const getAllUser = (limit = 4, page = 0) => {
       const allUser = await User.find().limit(limit).skip(page * limit);
       resolve({
         status: "OK",
-        message: "DELETE USER IS SUCCESS",
+        message: "Get all USER IS SUCCESS",
         data: allUser,
         total: totalUser,
         pageCurrent: Number(page + 1),

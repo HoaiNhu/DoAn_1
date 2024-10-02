@@ -133,14 +133,30 @@ const getDetailsProduct = (id) => {
 };
 
 //get all product
-const getAllProduct = (limit, page) => {
+const getAllProduct = (limit, page, sort) => {
   return new Promise(async (resolve, reject) => {
     try {
       const totalProduct = await Product.countDocuments();
+      
+      if(sort){
+        const objectSort = {};
+        objectSort[sort[1]] = sort[0];
+        console.log('objectSort', objectSort)
+        const allProductSort = await Product.find().limit(limit).skip(page * limit).sort(objectSort);
+        resolve({
+          status: "OK",
+          message: "Get all Product IS SUCCESS",
+          data: allProductSort,
+          total: totalProduct,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalProduct / limit),
+        });
+      }
+
       const allProduct = await Product.find().limit(limit).skip(page * limit);
       resolve({
         status: "OK",
-        message: "DELETE Product IS SUCCESS",
+        message: "Get all Product IS SUCCESS",
         data: allProduct,
         total: totalProduct,
         pageCurrent: Number(page + 1),
