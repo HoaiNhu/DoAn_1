@@ -5,7 +5,7 @@ const validator = require("validator");
 //tạo tài khoản
 const createUser = async (req, res) => {
   try {
-    console.log(req.body);
+    //console.log(req.body);
     //test input data
     const { name, phone, email, password, confirmPassword } = req.body;
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; //check email
@@ -123,7 +123,8 @@ const deleteUser = async (req, res) => {
 //get info user
 const getAllUser = async (req, res) => {
   try {
-    const response = await UserServices.getAllUser();
+    const { limit, page } = req.query;
+    const response = await UserServices.getAllUser(Number(limit), Number(page));
     return res.status(200).json(response);
   } catch (e) {
     return res.status(404).json({

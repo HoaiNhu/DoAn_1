@@ -133,7 +133,7 @@ const getDetailsProduct = (id) => {
 };
 
 //get all product
-const getAllProduct = (limit = 8, page = 0) => {
+const getAllProduct = (limit, page) => {
   return new Promise(async (resolve, reject) => {
     try {
       const totalProduct = await Product.countDocuments();
@@ -143,7 +143,7 @@ const getAllProduct = (limit = 8, page = 0) => {
         message: "DELETE Product IS SUCCESS",
         data: allProduct,
         total: totalProduct,
-        pageCurrent: Number(page += 1),
+        pageCurrent: Number(page + 1),
         totalPage: Math.ceil(totalProduct / limit),
       });
     } catch (e) {
