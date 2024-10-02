@@ -133,15 +133,28 @@ const getDetailsProduct = (id) => {
 };
 
 //get all product
-const getAllProduct = (limit, page, sort) => {
+const getAllProduct = (limit, page, sort, filter) => {
   return new Promise(async (resolve, reject) => {
     try {
       const totalProduct = await Product.countDocuments();
       
+      if(filter){
+        const label = filter[0];
+        const allProductFilter = await Product.find({ [label]: {'$regex': filter[1] } }).limit(limit).skip(page * limit) //filter gần đúng
+        resolve({
+          status: "OK",
+          message: "Get all Product IS SUCCESS",
+          data: allProductFilter,
+          total: totalProduct,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalProduct / limit),
+        });
+      }
+
       if(sort){
         const objectSort = {};
         objectSort[sort[1]] = sort[0];
-        console.log('objectSort', objectSort)
+        //console.log('objectSort', objectSort)
         const allProductSort = await Product.find().limit(limit).skip(page * limit).sort(objectSort);
         resolve({
           status: "OK",
