@@ -104,8 +104,6 @@ const deleteProduct = (id) => {
   });
 };
 
-
-
 //get details product
 const getDetailsProduct = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -135,21 +133,25 @@ const getDetailsProduct = (id) => {
 };
 
 //get all product
-const getAllProduct = (id) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const allProduct = await Product.find();
-        resolve({
-          status: "OK",
-          message: "DELETE Product IS SUCCESS",
-          data: allProduct,
-        });
-      } catch (e) {
-        reject(e);
-      }
-    });
-  };
-  
+const getAllProduct = (limit = 8, page = 0) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const totalProduct = await Product.countDocuments();
+      const allProduct = await Product.find().limit(limit).skip(page * limit);
+      resolve({
+        status: "OK",
+        message: "DELETE Product IS SUCCESS",
+        data: allProduct,
+        total: totalProduct,
+        pageCurrent: Number(page += 1),
+        totalPage: Math.ceil(totalProduct / limit),
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   createProduct,
   updateProduct,

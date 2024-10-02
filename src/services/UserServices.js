@@ -154,7 +154,7 @@ const deleteUser = (id) => {
 };
 
 //get info user
-const getAllUser = (id) => {
+const getAllUser = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const allUser = await User.find();
